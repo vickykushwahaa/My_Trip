@@ -23,6 +23,9 @@ const validateListing = (req,res,next)=>{
     }
 }
 
+router.get("/search", wrapAsync(listingController.searchListings));
+
+
 router.route("/")
 .get(wrapAsync(listingController.index))
 .post(

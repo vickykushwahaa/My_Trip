@@ -102,7 +102,7 @@
         <p>Boat House</p>
       </div>
 
-      <div class="taxt_toggle">
+    <div class="taxt_toggle">
         <div class="form-check-reverse form-switch">
           <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
           <label class="form-check-label" for="switchCheckDefault">Display total after taxes</label>
@@ -132,6 +132,13 @@
 </div>
 </body>
 
+<!--   <% if (typeof searchQuery !== "undefined") { %>
+    <h3>Search results for: "<%= searchQuery %>"</h3>  -->
+
+    <% if (allListings.length === 0) { %>
+        <p>No listings found.</p>
+    <% } %>
+<!--<% } %>    -->
 
 <script>
   let taxSwitch = document.getElementById("switchCheckDefault");

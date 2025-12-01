@@ -13,6 +13,28 @@ module.exports.renderNewForm = (req, res) => {
     res.render("listings/new.ejs");
 }
 
+const Listing = require("../models/listing");
+
+module.exports.searchListings = async (req, res) => {
+    const { query } = req.query;
+
+    if (!query || query.trim() === "") {
+        req.flash("error", "Please enter a search term");
+        return res.redirect("/listings");
+    }
+
+    // Search by country OR location
+    const allListings = await Listing.find({
+        $or: [
+            { location: { $regex: query, $options: "i" } },
+            { country: { $regex: query, $options: "i" } }
+        ]
+    });
+
+    res.render("listings/index.ejs", { allListings, searchQuery: query });
+};
+
+
 module.exports.showListing = async (req, res, next) => {
     try {
         let { id } = req.params;
@@ -127,3 +149,5 @@ module.exports.deleteListing = async (req, res, next) => {
         next(err);
     }
 }
+
+
