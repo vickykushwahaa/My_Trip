@@ -1,0 +1,58 @@
+<% layout("/layouts/boilerplate") -%>
+
+<body>
+    <div class="row">
+        <div class="col-8 offset-2">
+        <h3>Edit This Linsting</h3>
+        <form method="POST" action="/listings/<%= oneListing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="listing[title]" value="<%= oneListing.title%>" class="form-control" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">please enter valid title</div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea required class="form-control" name="listing[description]"><%= oneListing.description %></textarea>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">please enter valid description</div>
+            </div>
+
+            <div class="mb-3">
+                Original Listing Image <br>
+                <img src="<%=oneListing.image.url%>" style="width: 18%;">
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload New Image</label>
+                <input class="form-control" type="file" name="listing[image]">
+                <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                      <label for="price" class="form-label">Price</label>
+                      <input class="form-control" type="text" name="listing[price]"  value="<%= oneListing.price%>"required>
+                       <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">please enter valid price</div>
+                </div>
+                <div class="mb-3 col-md-8">
+                       <label for="country" class="form-label">Country</label>
+                       <input class="form-control" type="text" name="listing[country]"  value="<%= oneListing.country%>"required>
+                       <div class="valid-feedback">Looks good!</div>
+                       <div class="invalid-feedback">please enter valid country</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input class="form-control" type="text" name="listing[location]"  value="<%= oneListing.location%>"required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">please enter valid location</div>
+            </div>
+
+        <button class="btn btn-dark edit-btn mt-3">Edit</button>
+      </form>
+     </div>
+    </div>
+</body>

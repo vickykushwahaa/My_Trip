@@ -1,0 +1,92 @@
+<% layout("/layouts/boilerplate") -%>
+
+    <div class="col-8 offset-2">
+      <h3><b><%= oneListing.title %></b></h3>
+      <div class="card show-card listing-card">
+        <img src="<%= oneListing.image.url %>" class="card-img-top show-img" alt="card_image">
+        <div class="card-body">
+            <p>Owned by <i> <%= oneListing.owner.username %> </i></p>
+            <p><i><%= oneListing.description %></i> </p>
+            <p><% if (oneListing.price) { %>
+              &#8377;<%= oneListing.price.toLocaleString("en-IN") %> / night
+            <% } else { %>
+              Price not available
+            <% } %> </p>
+            <p><%= oneListing.location %></p>
+            <p><%= oneListing.country %></p>
+        </div>
+      </div>
+    </div>
+
+  <!-- <% if(currUser && currUser._id.equals(oneListing.owner._id)) {  %> -->
+  <div class="btns">
+    <a href="/listings/<%= oneListing._id %>/edit" class="edit-btn btn btn-dark">Edit</a>
+    <form method="POST" action="/listings/<%= oneListing._id %>?_method=DELETE">
+      <button class="delete-btn btn btn-dark">Delete</button>
+    </form>
+  </div>
+  <!-- <%}%> -->
+   
+
+
+       
+    <h4>Leave a review</h4>
+    <form action="/listings/<%= oneListing._id %>/reviews" method="post"  novalidate class="needs-validation">
+      <div class="mb-3 mt-3">
+        <!-- <input type="range" name="review[rating]" id="rating" min="1" max="5" class="form-range"> -->
+
+        <label for="rating" class="form-label">Rating</label>
+
+    <fieldset class="starability-coinFlip">
+      <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="rating" />
+
+      <input type="radio" id="rate1" name="review[rating]" value="1" />
+      <label for="rate1">1 star.</label>
+
+      <input type="radio" id="rate2" name="review[rating]" value="2" />
+      <label for="rate2">2 stars.</label>
+
+      <input type="radio" id="rate3" name="review[rating]" value="3" />
+      <label for="rate3">3 stars.</label>
+
+      <input type="radio" id="rate4" name="review[rating]" value="4" />
+      <label for="rate4">4 stars.</label>
+
+      <input type="radio" id="rate5" name="review[rating]" value="5" />
+      <label for="rate5">5 stars.</label>
+
+      <span class="starability-focus-ring"></span>
+    </fieldset>
+          </div>
+
+
+
+
+
+      <div class="mb-3 mt-3">
+        <label for="comment" class="form-label">Comment</label>
+        <textarea required name="review[comment]" id="comment" cols="30" rows="3" style="width: auto;" placeholder="Write your comment here..." class="form-control"></textarea>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">please add some comment for review</div>
+      </div>
+      <button class="btn btn-outline-dark mb-3" type="submit">Submit</button>
+    </form>
+
+  <div class="review-container mt-3">
+     <!-- <p><b>All Reviews</b></p> -->
+     <div class="row">
+     <% for(review of oneListing.reviews){ %>
+      <div class="card col-5 ms-3 ">
+        <div class="card-body">
+          <h5 class="card-title">@<%= review.author.username%></h5>
+            <p class="starability-result card-text" data-rating="<%= review.rating %>"></p> <br>
+          <p class="card-text"><%= review.comment %></p>
+
+        </div>
+        <form class="mb-3" action="/listings/<%= oneListing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+           <button class="btn btn-danger">Delete Review</button>
+        </form>
+      </div>
+     <%}%>
+     </div>
+    </div>
