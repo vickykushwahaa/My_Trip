@@ -72,9 +72,11 @@
       <button class="btn btn-outline-dark mb-3" type="submit">Submit</button>
     </form>
 
+
+     <%if(oneListing.reviews.length > 0){  %>
   <div class="review-container mt-3">
-     <!-- <p><b>All Reviews</b></p> -->
      <div class="row">
+      <p><b>All Reviews</b></p>
      <% for(review of oneListing.reviews){ %>
       <div class="card col-5 ms-3 ">
         <div class="card-body">
@@ -89,4 +91,6 @@
       </div>
      <%}%>
      </div>
-    </div>
+  </div>
+<%}%>
+
